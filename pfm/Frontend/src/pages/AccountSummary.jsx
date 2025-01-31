@@ -50,9 +50,9 @@ function AccountSummary({ refreshTrigger }) {
         <p className="error-message">{error}</p>
       ) : (
         <>
-          <p className="summary-item">Total Income: ${summary.totalIncome.toFixed(2)}</p>
-          <p className="summary-item">Total Expenses: ${summary.totalExpenses.toFixed(2)}</p>
-          <p className="summary-item">Balance: ${summary.balance.toFixed(2)}</p>
+          <p className="summary-item">Total Income: ₹{summary.totalIncome.toFixed(2)}</p>
+          <p className="summary-item">Total Expenses:₹{summary.totalExpenses.toFixed(2)}</p>
+          <p className="summary-item">Balance:₹{summary.balance.toFixed(2)}</p>
         </>
       )}
     </div>

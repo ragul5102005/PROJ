@@ -17,7 +17,7 @@ const Home = ({ setIsLoggedIn }) => {
         <button onClick={() => navigate('/add-transaction')}>Add Transaction</button>
         <button onClick={() => navigate('/view-transactions')}>View Transactions</button>
         <button onClick={() => navigate('/account-summary')}>Account Summary</button>
-        <button onClick={() => navigate('/ai-budget')}>AI Budget Suggestions</button>
+        <button onClick={() => navigate('/ai-budget')}>Budget Suggestions</button>
         <button onClick={() => navigate('/report')}>Reports</button>
         <button onClick={handleLogout}>Logout</button>
       </nav>

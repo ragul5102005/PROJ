@@ -26,7 +26,7 @@ function BudgetSuggestion() {
         setBudgetData(response.data);
       } catch (error) {
         console.error("Error fetching budget suggestion:", error);
-        setError("Failed to load budget suggestion.");
+        setError("No budget suggestions available.");
       } finally {
         setLoading(false);
       }
@@ -57,3 +57,4 @@ function BudgetSuggestion() {
 }
 
 export default BudgetSuggestion;
+

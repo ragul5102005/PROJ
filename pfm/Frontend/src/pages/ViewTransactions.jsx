@@ -121,7 +121,7 @@ function ViewTransactions({ refreshAccountSummary }) {
           {transactions.map((transaction) => (
             <li key={transaction._id} className="transaction-item">
               <span>
-                {transaction.description} - ${transaction.amount} - {transaction.category} - {transaction.date.split("T")[0]}
+                {transaction.description} - ₹{transaction.amount} - {transaction.category} - {transaction.date.split("T")[0]}
               </span>
               <button onClick={() => handleEditClick(transaction)}>Edit</button>
             </li>

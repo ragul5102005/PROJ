@@ -1,4 +1,4 @@
-.budget-suggestion-container {
+/*.budget-suggestion-container {
   max-width: 500px;
   margin: 20px auto;
   padding: 20px;
@@ -27,4 +27,57 @@
 .error-message {
   color: red;
   font-weight: bold;
+}
+*/
+
+.budget-suggestion-container {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.loading-message {
+  color: #2563eb;
+  font-weight: bold;
+}
+
+.error-container {
+  color: #ef4444;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.retry-button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.retry-button:hover {
+  background-color: #1d4ed8;
+}
+
+.budget-details {
+  text-align: left;
+  margin-top: 15px;
+}
+
+.budget-details p {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #1e293b;
+}
+
+.budget-details strong {
+  color: #2563eb;
 }

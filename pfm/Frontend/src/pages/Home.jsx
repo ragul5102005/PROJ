@@ -117,7 +117,7 @@ function Home() {
           onMouseLeave={(e) => Object.assign(e.target.style, cardStyle)}
         >
           <FiSettings style={iconStyle} />
-          <h3>AI Budget</h3>
+          <h3>Budget</h3>
         </div>
         <div
           style={cardStyle}

@@ -1,0 +1,140 @@
+.navigation {
+  width: 280px;
+  height: 100vh;
+  background: var(--card-background);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 1.5rem;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.nav-brand h1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-item img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+}
+
+.nav-item:hover {
+  background: var(--background-color);
+  color: var(--primary-color);
+}
+
+.nav-item:hover img {
+  opacity: 1;
+}
+
+.nav-item.active {
+  background: var(--primary-color);
+  color: rgb(14, 13, 13);
+}
+
+.nav-item.active img {
+  opacity: 1;
+  filter: brightness(0) invert(1);
+}
+
+.nav-footer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem;
+  background: transparent;
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
+}
+
+.logout-button:hover {
+  background: var(--danger-color);
+  color: rgb(9, 6, 6);
+}
+
+.logout-button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navigation {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 1rem;
+  }
+
+  .nav-brand {
+    padding-bottom: 1rem;
+  }
+
+  .nav-links {
+    flex-direction: row;
+    overflow-x: auto;
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .nav-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 0.75rem;
+    min-width: 80px;
+  }
+
+  .nav-item span {
+    font-size: 0.8rem;
+  }
+
+  .nav-footer {
+    display: none;
+  }
+}

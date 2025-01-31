@@ -5,8 +5,6 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-
-
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -20,7 +18,6 @@ mongoose
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// ✅ User Schema
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -28,7 +25,6 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-// ✅ Transaction Schema
 const transactionSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   amount: { type: Number, required: true },
@@ -40,7 +36,7 @@ const transactionSchema = new mongoose.Schema({
 
 const Transaction = mongoose.model("Transaction", transactionSchema);
 
-// ✅ Account Summary Schema
+
 const accountSummarySchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, unique: true },
   totalIncome: { type: Number, required: true, default: 0 },
@@ -50,7 +46,6 @@ const accountSummarySchema = new mongoose.Schema({
 
 const AccountSummary = mongoose.model("AccountSummary", accountSummarySchema);
 
-// ✅ Authentication Middleware
 const authenticateUser = (req, res, next) => {
   const token = req.header("Authorization");
   if (!token) return res.status(401).json({ error: "Access denied. No token provided." });
@@ -64,7 +59,7 @@ const authenticateUser = (req, res, next) => {
   }
 };
 
-// ✅ Update Account Summary Function (Per User)
+
 const updateAccountSummary = async (userId) => {
   try {
     const transactions = await Transaction.find({ userId });
@@ -89,8 +84,6 @@ const updateAccountSummary = async (userId) => {
 };
 
 
-
-// ✅ GET - Fetch all transactions (Sorted by Date)
 app.get("/api/transactions", authenticateUser, async (req, res) => {
   try {
     const transactions = await Transaction.find({ userId: req.userId }).sort({ date: -1 });
@@ -100,7 +93,7 @@ app.get("/api/transactions", authenticateUser, async (req, res) => {
   }
 });
 
-// ✅ GET - Fetch Account Summary
+
 app.get("/api/account-summary", authenticateUser, async (req, res) => {
   try {
     let summary = await AccountSummary.findOne({ userId: req.userId });
@@ -117,17 +110,17 @@ app.get("/api/account-summary", authenticateUser, async (req, res) => {
 });
 app.get("/api/budget-suggestion", authenticateUser, async (req, res) => {
   try {
-    // Fetch account summary for the user
+
     const summary = await AccountSummary.findOne({ userId: req.userId });
     if (!summary) {
       return res.status(404).json({ error: "No account summary found." });
     }
 
-    // Use Account Summary values to avoid inconsistencies
+  
     let totalIncome = summary.totalIncome; // Use correct income
     let totalExpenses = summary.totalExpenses; // Use correct expenses
 
-    // Fetch user's transactions
+
     const transactions = await Transaction.find({ userId: req.userId });
 
     if (transactions.length === 0) {
@@ -136,37 +129,19 @@ app.get("/api/budget-suggestion", authenticateUser, async (req, res) => {
 
     let categoryTotals = {};
 
-    // Process transactions for category-wise expense analysis
+ 
     transactions.forEach((transaction) => {
       if (transaction.type === "expense") {
         categoryTotals[transaction.category] = (categoryTotals[transaction.category] || 0) + transaction.amount;
       }
     });
-    let highestSpendingCategory = "Unknown";
-    // Find highest spending category
-    const highestSpendingMessage = highestSpendingCategory 
-    ? `You are spending the most on ${highestSpendingCategory[0]} ($${highestSpendingCategory[1].toFixed(2)}). Consider reducing expenses in this category.`
-    : "No spending data available.";
-  console.log(highestSpendingMessage);
-  
- 
 
-  const expenses = [
-    { category: "Food", amount: 200 },
-    { category: "Rent", amount: 800 },
-    { category: "Entertainment", amount: 100 },
-  ];
-  console.log("Budget Suggestion API Response:", response.data);
-  
-  if (expenses.length > 0) {
-    highestSpendingCategory = expenses.reduce((prev, current) =>
-      prev.amount > current.amount ? prev : current
-    ).category;
-  } else {
-    highestSpendingCategory = "No expenses recorded";
-  }
-  
 
+    const highestSpendingCategory = Object.entries(categoryTotals).sort((a, b) => b[1] - a[1])[0];
+
+    let suggestion = highestSpendingCategory
+    console.log(`You are spending the most on ${highestSpendingCategory[0]} ($${highestSpendingCategory[1].toFixed(2)}). Consider reducing expenses in this category.`);
+  
 
     // Calculate remaining balance and suggested savings
     const remainingBalance = summary.balance;
@@ -266,7 +241,7 @@ app.put('/api/transactions/:id', authenticateUser, async (req, res) => {
       summary.totalExpenses += amount; // Add new expense
     }
 
-    // ✅ Recalculate balance
+
     summary.balance = summary.totalIncome - summary.totalExpenses;
 
     // ✅ Save updated summary
@@ -304,7 +279,6 @@ app.delete("/api/transactions/:id", authenticateUser, async (req, res) => {
   }
 });
 
-// ✅ User Registration (Signup)
 app.post("/api/signup", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -321,7 +295,7 @@ app.post("/api/signup", async (req, res) => {
   }
 });
 
-// ✅ User Login
+
 app.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
