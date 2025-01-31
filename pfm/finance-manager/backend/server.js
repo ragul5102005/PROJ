@@ -5,6 +5,8 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+
+
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -140,12 +142,29 @@ app.get("/api/budget-suggestion", authenticateUser, async (req, res) => {
         categoryTotals[transaction.category] = (categoryTotals[transaction.category] || 0) + transaction.amount;
       }
     });
-
+    let highestSpendingCategory = "Unknown";
     // Find highest spending category
     const highestSpendingMessage = highestSpendingCategory 
     ? `You are spending the most on ${highestSpendingCategory[0]} ($${highestSpendingCategory[1].toFixed(2)}). Consider reducing expenses in this category.`
     : "No spending data available.";
   console.log(highestSpendingMessage);
+  
+ 
+
+  const expenses = [
+    { category: "Food", amount: 200 },
+    { category: "Rent", amount: 800 },
+    { category: "Entertainment", amount: 100 },
+  ];
+  console.log("Budget Suggestion API Response:", response.data);
+  
+  if (expenses.length > 0) {
+    highestSpendingCategory = expenses.reduce((prev, current) =>
+      prev.amount > current.amount ? prev : current
+    ).category;
+  } else {
+    highestSpendingCategory = "No expenses recorded";
+  }
   
 
 
