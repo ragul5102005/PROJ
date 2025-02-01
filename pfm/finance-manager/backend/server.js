@@ -14,7 +14,7 @@ app.use(express.json());
 
 
 mongoose
-  .connect("mongodb://localhost:27017/personal-finance", { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect("mongodb+srv://ragul:ragul@123@ragul.e9pqu.mongodb.net/personal-finance", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
